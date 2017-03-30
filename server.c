@@ -458,10 +458,13 @@ char* indexes(const char* path)
     if (index_php_path == NULL){
      return NULL;
     }
+    
     //Copy the string pointed by source into the array pointed by destination
     strcpy(index_php_path, path);
+    
     //concatenate strings
     strcat(index_php_path, "index.php");
+    
     //if the file exists, return path else free the memory
     if (access(index_php_path, F_OK)!=-1){
         return index_php_path;
@@ -474,10 +477,13 @@ char* indexes(const char* path)
     if (index_html_path == NULL){
      return NULL;
     }
+    
     //Copy the string pointed by source into the array pointed by destination
     strcpy(index_html_path, path);
+    
     //concatenate strings
     strcat(index_html_path, "index.html");
+    
     //if the file exists, return path else free the memory
     if (access(index_html_path, F_OK)!=-1){
         return index_html_path;
