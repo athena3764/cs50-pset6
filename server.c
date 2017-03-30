@@ -445,38 +445,48 @@ char* htmlspecialchars(const char* s)
  */
 char* indexes(const char* path)
 {
+    //declare lengths of path and file names
     int path_len = strlen(path);
     int php_len = strlen("index.php");
     int html_len = strlen("index.html");
+    
+    //allocates a block of size bytes of memory
     char* index_php_path = malloc(path_len + php_len + 1);
     char* index_html_path = malloc(path_len + html_len + 1);
-   
-    if (index_php_path == NULL) return NULL;
-  
+    
+    //if the memory address of path doesn't exist, return null
+    if (index_php_path == NULL){
+     return NULL;
+    }
+    //Copy the string pointed by source into the array pointed by destination
     strcpy(index_php_path, path);
-    strcat(index_php_path, "index.php"); 
-  
+    //concatenate strings
+    strcat(index_php_path, "index.php");
+    //if the file exists, return path else free the memory
     if (access(index_php_path, F_OK)!=-1){
         return index_php_path;
     } 
     else{
-       
         free(index_php_path);
     }
     
-    if (index_html_path == NULL) return NULL;
+    //if the memory address of path doesn't exist, return null
+    if (index_html_path == NULL){
+     return NULL;
+    }
+    //Copy the string pointed by source into the array pointed by destination
     strcpy(index_html_path, path);
+    //concatenate strings
     strcat(index_html_path, "index.html");
+    //if the file exists, return path else free the memory
     if (access(index_html_path, F_OK)!=-1){
-
         return index_html_path;
     }
     else{
        
         free(index_html_path);
     }
-       return NULL;
-     
+       return NULL;   
 }
 
 
@@ -665,7 +675,6 @@ bool load(FILE* file, BYTE** content, size_t* length)
          
         //Changes the size of the memory block pointed to by *content.
         *content = realloc(*content, *length + bytes + 1);
-        
         if (*content == NULL)
         {
             *length = 0;
@@ -680,22 +689,16 @@ bool load(FILE* file, BYTE** content, size_t* length)
         // null-terminate content
         *(*content + *length) = '\0';
    }
-   
    if (feof(file)){
        
        return true;
    }
-   
         if (*content != NULL)
             {
                 free(*content);
                 *content = NULL;
             }
-            
-            return false;
-   
-   
-   
+            return false;  
 }
 
    
@@ -707,41 +710,31 @@ const char* lookup(const char* path)
 {
     
     const char ch = '.';
- 
     char *ext;
-   
+  
     ext = strrchr(path, ch);
-    
     if(strcasecmp(ext, ".css") == 0){
-        
         return "text/css";
     } 
-    else if(strcasecmp(ext, ".html") == 0){
-        
+    else if(strcasecmp(ext, ".html") == 0){ 
         return "text/html";
     } 
     else if(strcasecmp(ext, ".gif") == 0){
-        
         return "image/gif";
     } 
     else if(strcasecmp(ext, ".ico") == 0){
-        
         return "image/x-icon";
     } 
     else if(strcasecmp(ext, ".jpg") == 0){
-        
         return "image/jpeg";
     } 
     else if(strcasecmp(ext, ".js") == 0){
-        
         return "text/javascript";
     } 
     else if(strcasecmp(ext, ".php") == 0){
-        
         return "text/x-php";
     } 
     else if(strcasecmp(ext, ".png") == 0){
-        
         return "image/png";
     } 
     else{
