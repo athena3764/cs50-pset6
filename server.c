@@ -713,8 +713,7 @@ bool load(FILE* file, BYTE** content, size_t* length)
  * Returns MIME type for supported extensions, else NULL.
  */
 const char* lookup(const char* path)
-{
-    
+{ 
     const char ch = '.';
     char *ext;
   
